@@ -17,35 +17,35 @@ import it.unibo.bbc_smartphone.gps_utils.*;
 
 public class MainActivity extends ActionBarActivity  {
     private final static int REQUEST_ENABLE_BT = 10;
+    private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        GPSListener listener = new GPSListener();
-        GPSUtils.initGPS(listener, this);
-        try {
+        /*try {
             TCPConnection connection = new TCPConnection();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }else{
-            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS));
+            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_SAMSUNG));
             thread.start();
         }
+        GPSListener listener = new GPSListener();
+        GPSUtils.initGPS(listener, this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS));
+        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_SAMSUNG));
         thread.start();
     }
 
