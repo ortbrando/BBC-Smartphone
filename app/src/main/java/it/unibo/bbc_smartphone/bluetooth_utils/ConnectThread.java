@@ -1,4 +1,4 @@
-package it.unibo.bbc_smartphone;
+package it.unibo.bbc_smartphone.bluetooth_utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
 import java.util.UUID;
-import android.os.Handler;
 
 /**
  * Created by brando on 28/05/2015.
@@ -16,13 +15,11 @@ public class ConnectThread extends Thread {
     private final BluetoothDevice mmDevice;
     private final static String stringUUID = "90bebbb2-051f-11e5-a6c0-1697f925ec7b";
     private UUID MY_UUID;
-    private Handler handler;
 
-    public ConnectThread(BluetoothDevice device, Handler handler) {
+    public ConnectThread(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket,
         // because mmSocket is final
         BluetoothSocket tmp = null;
-        this.handler = handler;
         mmDevice = device;
         MY_UUID = UUID.fromString(stringUUID);
         // Get a BluetoothSocket to connect with the given BluetoothDevice
@@ -55,7 +52,7 @@ public class ConnectThread extends Thread {
 
     private void manageConnectedSocket(BluetoothSocket socket){
         ConnectedThread thread = new ConnectedThread(socket);
-        this.handler.obtainMessage(1,thread).sendToTarget();
+        BluetoothUtils.getInstance().setConnectedThread(thread);
         thread.start();
     }
 

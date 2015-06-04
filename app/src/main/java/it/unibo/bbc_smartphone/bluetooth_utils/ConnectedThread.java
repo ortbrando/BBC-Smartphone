@@ -1,4 +1,4 @@
-package it.unibo.bbc_smartphone;
+package it.unibo.bbc_smartphone.bluetooth_utils;
 import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
