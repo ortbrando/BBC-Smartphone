@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 

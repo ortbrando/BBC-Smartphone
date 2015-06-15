@@ -10,17 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
+import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.R;
 import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
+import it.unibo.bbc_smartphone.model.TreasureChest;
 import it.unibo.bbc_smartphone.tcp_connection.TCPConnection;
 import it.unibo.bbc_smartphone.gps_utils.*;
 
 
 public class MainActivity extends ActionBarActivity  {
     private TCPConnection connection;
-    private TextView textView;
+    private TextView textNumber;
+    private TextView textLat;
+    private TextView textLong;
+    private TextView textMoney;
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
@@ -30,7 +38,10 @@ public class MainActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.textView = (TextView)findViewById(R.id.textProva);
+        this.textNumber = (TextView)findViewById(R.id.textNumber);
+        this.textLat = (TextView)findViewById(R.id.textLat);
+        this.textLong = (TextView)findViewById(R.id.textLong);
+        this.textMoney = (TextView)findViewById(R.id.textMoney);
 
         //GPS service is activated
         this.initGPSService();
@@ -110,7 +121,15 @@ public class MainActivity extends ActionBarActivity  {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==1){
-                textView.setText((String)msg.obj);
+                try {
+                    TreasureChest treasureChest = ParserUtils.getTreasureChestFromJSONObject((JSONObject)msg.obj);
+                    textNumber.setText(treasureChest.getNumber());
+                    textLat.setText(""+treasureChest.getLatitude());
+                    textLong.setText(""+treasureChest.getLongitude());
+                    textNumber.setText(treasureChest.getMoney());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
