@@ -25,9 +25,7 @@ public class TCPClientThread extends Thread {
     public void run() {
         while (true){
             try {
-                Log.i("log", "WAITING");
                 String s = inFromServer.readLine();
-                Log.i("RECEIVED", s);
                 this.tcpConnectionHandler.obtainMessage(1, new JSONObject(s)).sendToTarget();
             } catch (IOException e) {
                 e.printStackTrace();

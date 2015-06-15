@@ -132,13 +132,12 @@ public class MainActivity extends ActionBarActivity  {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==1){
-                Log.i("ENTRATO","YES");
                 try {
                     TreasureChest treasureChest = ParserUtils.getTreasureChestFromJSONObject((JSONObject)msg.obj);
-                    textNumber.setText(treasureChest.getNumber());
+                    textNumber.setText(""+treasureChest.getNumber());
                     textLat.setText(""+treasureChest.getLatitude());
                     textLong.setText(""+treasureChest.getLongitude());
-                    textMoney.setText(treasureChest.getMoney());
+                    textMoney.setText(""+treasureChest.getMoney());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
