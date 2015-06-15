@@ -18,7 +18,6 @@ import it.unibo.bbc_smartphone.gps_utils.*;
 public class MainActivity extends ActionBarActivity  {
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
-    private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
