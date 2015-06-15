@@ -22,7 +22,7 @@ public class TCPConnection {
         Socket clientSocket = new Socket(serverIP, port);
         outToServer = new DataOutputStream(clientSocket.getOutputStream());
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        TCPClientThread tcpClientThread = new TCPClientThread(inFromServer);
+        TCPClientThread tcpClientThread = new TCPClientThread(inFromServer, tcpConnectionHandler);
         tcpClientThread.start();
     }
 
