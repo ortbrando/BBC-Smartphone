@@ -36,7 +36,9 @@ public class TCPConnection extends Thread {
     }
 
     public void sendToServer(String s) throws IOException {
-        outToServer.writeBytes(s);
+        if(outToServer!=null){
+            outToServer.writeBytes(s);
+        }
     }
 }
 

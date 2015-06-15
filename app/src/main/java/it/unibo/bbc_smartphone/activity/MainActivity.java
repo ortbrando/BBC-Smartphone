@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -29,6 +31,7 @@ public class MainActivity extends ActionBarActivity  {
     private TextView textLat;
     private TextView textLong;
     private TextView textMoney;
+    private Button button;
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
@@ -43,6 +46,8 @@ public class MainActivity extends ActionBarActivity  {
         this.textLong = (TextView)findViewById(R.id.textLong);
         this.textMoney = (TextView)findViewById(R.id.textMoney);
 
+        this.button = (Button)findViewById(R.id.initButton);
+
         //GPS service is activated
         this.initGPSService();
 
@@ -52,11 +57,16 @@ public class MainActivity extends ActionBarActivity  {
         //BT Connection is initialized
         //this.initBluetoothConnection();
 
-        try {
-            this.connection.sendToServer("INIT");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    connection.sendToServer("INIT");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -126,7 +136,7 @@ public class MainActivity extends ActionBarActivity  {
                     textNumber.setText(treasureChest.getNumber());
                     textLat.setText(""+treasureChest.getLatitude());
                     textLong.setText(""+treasureChest.getLongitude());
-                    textNumber.setText(treasureChest.getMoney());
+                    textMoney.setText(treasureChest.getMoney());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
