@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -131,6 +132,7 @@ public class MainActivity extends ActionBarActivity  {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==1){
+                Log.i("ENTRATO","YES");
                 try {
                     TreasureChest treasureChest = ParserUtils.getTreasureChestFromJSONObject((JSONObject)msg.obj);
                     textNumber.setText(treasureChest.getNumber());

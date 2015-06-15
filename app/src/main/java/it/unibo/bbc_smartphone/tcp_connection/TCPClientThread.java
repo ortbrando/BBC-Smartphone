@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -23,7 +25,7 @@ public class TCPClientThread extends Thread {
         while (true){
             try {
                 String s = inFromServer.readLine();
-                this.tcpConnectionHandler.obtainMessage(1, s);
+                this.tcpConnectionHandler.obtainMessage(1, s).sendToTarget();
             } catch (IOException e) {
                 e.printStackTrace();
             }
