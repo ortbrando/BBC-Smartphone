@@ -56,13 +56,10 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     private void initTCPConnection(){
-        try {
-            TCPConnectionHandler tcpConnectionHandler = new TCPConnectionHandler();
-            TCPConnection connection = new TCPConnection(tcpConnectionHandler);
-            this.connection = connection;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TCPConnectionHandler tcpConnectionHandler = new TCPConnectionHandler();
+        TCPConnection connection = new TCPConnection(tcpConnectionHandler);
+        this.connection = connection;
+        this.connection.start();
     }
 
     private void initBluetoothConnection(){
