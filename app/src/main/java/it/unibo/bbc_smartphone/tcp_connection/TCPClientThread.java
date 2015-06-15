@@ -20,7 +20,8 @@ public class TCPClientThread extends Thread {
     public void run() {
         while (true){
             try {
-                inFromServer.readLine();
+                String s = inFromServer.readLine();
+                this.tcpConnectionHandler.obtainMessage(1, s);
             } catch (IOException e) {
                 e.printStackTrace();
             }

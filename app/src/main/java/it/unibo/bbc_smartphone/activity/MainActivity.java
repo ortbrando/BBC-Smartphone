@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -18,15 +19,18 @@ import it.unibo.bbc_smartphone.gps_utils.*;
 
 
 public class MainActivity extends ActionBarActivity  {
+    private TCPConnection connection;
+    private TextView textView;
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
-    private TCPConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.textView = (TextView)findViewById(R.id.textProva);
 
         //GPS service is activated
         this.initGPSService();
@@ -35,7 +39,13 @@ public class MainActivity extends ActionBarActivity  {
         this.initTCPConnection();
 
         //BT Connection is initialized
-        this.initBluetoothConnection();
+        //this.initBluetoothConnection();
+
+        try {
+            this.connection.sendToServer("INIT");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -102,7 +112,9 @@ public class MainActivity extends ActionBarActivity  {
     public class TCPConnectionHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+            if(msg.what==1){
+                textView.setText((String)msg.obj);
+            }
         }
     }
 
