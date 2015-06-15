@@ -14,7 +14,7 @@ import it.unibo.bbc_smartphone.activity.MainActivity;
 public class TCPConnection extends Thread {
     private DataOutputStream outToServer;
     private MainActivity.TCPConnectionHandler tcpConnectionHandler;
-    private static final String serverIP = "10.201.8.4";
+    private static final String serverIP = "192.168.2.104";
     private static final int port = 6789;
 
     public TCPConnection(MainActivity.TCPConnectionHandler tcpConnectionHandler) {
