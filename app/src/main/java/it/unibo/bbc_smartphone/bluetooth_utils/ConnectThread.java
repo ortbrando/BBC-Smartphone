@@ -8,18 +8,22 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.UUID;
 
+import it.unibo.bbc_smartphone.activity.MainActivity;
+
 /**
  * Created by brando on 28/05/2015.
  */
 public class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
+    private MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler;
     private final static String stringUUID = "90bebbb2-051f-11e5-a6c0-1697f925ec7b";
     private UUID MY_UUID;
 
-    public ConnectThread(BluetoothDevice device) {
+    public ConnectThread(BluetoothDevice device, MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler) {
         // Use a temporary object that is later assigned to mmSocket,
         // because mmSocket is final
+        this.bluetoothConnectionHandler = bluetoothConnectionHandler;
         BluetoothSocket tmp = null;
         mmDevice = device;
         MY_UUID = UUID.fromString(stringUUID);
@@ -52,7 +56,7 @@ public class ConnectThread extends Thread {
     }
 
     private void manageConnectedSocket(BluetoothSocket socket){
-        ConnectedThread thread = new ConnectedThread(socket);
+        ConnectedThread thread = new ConnectedThread(socket, this.bluetoothConnectionHandler);
         BluetoothUtils.getInstance().setConnectedThread(thread);
         thread.start();
     }

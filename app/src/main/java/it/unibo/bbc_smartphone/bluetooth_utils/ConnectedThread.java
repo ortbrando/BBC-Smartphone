@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import it.unibo.bbc_smartphone.activity.MainActivity;
+
 /**
  * Created by brando on 28/05/2015.
  */
@@ -12,9 +14,11 @@ public class ConnectedThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
+    private MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler;
 
-    public ConnectedThread(BluetoothSocket socket) {
+    public ConnectedThread(BluetoothSocket socket, MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler) {
         mmSocket = socket;
+        this.bluetoothConnectionHandler = bluetoothConnectionHandler;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
 
