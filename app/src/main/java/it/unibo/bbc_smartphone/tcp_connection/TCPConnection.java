@@ -6,15 +6,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import it.unibo.bbc_smartphone.activity.MainActivity;
+
 /**
  * Created by brando on 04/06/2015.
  */
 public class TCPConnection {
     private DataOutputStream outToServer;
+    private MainActivity.TCPConnectionHandler tcpConnectionHandler;
     private static final String serverIP = "localhost";
     private static final int port = 6789;
 
-    public TCPConnection() throws IOException {
+    public TCPConnection(MainActivity.TCPConnectionHandler tcpConnectionHandler) throws IOException {
+        this.tcpConnectionHandler = tcpConnectionHandler;
         Socket clientSocket = new Socket(serverIP, port);
         outToServer = new DataOutputStream(clientSocket.getOutputStream());
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));

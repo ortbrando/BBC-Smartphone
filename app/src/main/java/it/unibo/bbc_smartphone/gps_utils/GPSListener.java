@@ -3,21 +3,22 @@ package it.unibo.bbc_smartphone.gps_utils;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.Message;
 
+import it.unibo.bbc_smartphone.activity.MainActivity;
 import it.unibo.bbc_smartphone.bluetooth_utils.BluetoothUtils;
 
 /**
  * Created by brando on 04/06/2015.
  */
 public class GPSListener implements LocationListener {
-    public GPSListener(){
-
+    private MainActivity.GPSServiceHandler gpsServiceHandler;
+    public GPSListener(MainActivity.GPSServiceHandler gpsServiceHandler){
+        this.gpsServiceHandler = gpsServiceHandler;
     }
     public void onLocationChanged(Location location) {
         // Called when a new location is found by the network location provider.
-        String locationToSend = ""+location.getLatitude()+"/"+location.getLongitude();
-
-        BluetoothUtils.getInstance().sendLocationToMoverio(locationToSend);
+        this.gpsServiceHandler.obtainMessage(1, location);
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
