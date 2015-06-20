@@ -9,7 +9,7 @@ public class Alert {
     private String message;
     private int idPlayer;
 
-    public Alert(long latitude, long longitude, String message, Player author, int idPlayer) {
+    public Alert(long latitude, long longitude, String message, int idPlayer) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.message = message;

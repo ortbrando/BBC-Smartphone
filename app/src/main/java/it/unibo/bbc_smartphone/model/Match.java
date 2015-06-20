@@ -13,15 +13,16 @@ public class Match {
     private Calendar dateStart;
     private Calendar dateEnd;
     private Set<TreasureChest> treasureChests;
-    private Set<Player> players;
+    private Player player1;
+    private Player player2;
 
-    public Match(int points, int maxPoints, Calendar dateStart, Calendar dateEnd) {
+    public Match(int points, int maxPoints, Calendar dateStart, Calendar dateEnd, int idPlayer) {
         this.points = points;
         this.maxPoints = maxPoints;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         treasureChests = new HashSet<>();
-        players = new HashSet<>();
+        this.player1 = new Player(idPlayer);
     }
 
     public int getPoints() {
@@ -63,12 +64,5 @@ public class Match {
     public void setTreasureChests(Set<TreasureChest> treasureChests) {
         this.treasureChests = treasureChests;
     }
-
-    public void setPlayers(Player p1, Player p2) {
-        this.players.add(p1);
-        this.players.add(p2);
-    }
-
-
 
 }
