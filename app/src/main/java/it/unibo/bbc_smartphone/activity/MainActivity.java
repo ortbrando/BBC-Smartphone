@@ -154,27 +154,27 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     private void matchReceived(Match match){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     private void treasureReceived(TreasureChest treasureChest){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     private void confirmOrRefuseMsgReceived(boolean confirm){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     private void alertReceived(Alert alert){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     private void moneyTheftReceived(int amount){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     private void newAmountReceived(int amount){
-
+        //COOPERATION LAYER CODE HERE
     }
 
     public class TCPConnectionHandler extends Handler{
