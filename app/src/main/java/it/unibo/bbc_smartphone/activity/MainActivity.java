@@ -21,6 +21,8 @@ import java.io.IOException;
 import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.R;
 import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
+import it.unibo.bbc_smartphone.model.Alert;
+import it.unibo.bbc_smartphone.model.Match;
 import it.unibo.bbc_smartphone.model.TreasureChest;
 import it.unibo.bbc_smartphone.tcp_connection.TCPConnection;
 import it.unibo.bbc_smartphone.gps_utils.*;
@@ -128,20 +130,57 @@ public class MainActivity extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    private void obtainReceivedMessage(Message msg){
+        switch (msg.what){
+            case 0:
+                this.matchReceived((Match) msg.obj);
+                break;
+            case 1:
+                this.treasureReceived((TreasureChest) msg.obj);
+                break;
+            case 2:
+                this.confirmOrRefuseMsgReceived((Boolean) msg.obj);
+                break;
+            case 3:
+                this.alertReceived((Alert) msg.obj);
+                break;
+            case 4:
+                this.moneyTheftReceived((Integer) msg.obj);
+                break;
+            case 5:
+                this.newAmountReceived((Integer) msg.obj);
+                break;
+        }
+    }
+
+    private void matchReceived(Match match){
+
+    }
+
+    private void treasureReceived(TreasureChest treasureChest){
+
+    }
+
+    private void confirmOrRefuseMsgReceived(boolean confirm){
+
+    }
+
+    private void alertReceived(Alert alert){
+
+    }
+
+    private void moneyTheftReceived(int amount){
+
+    }
+
+    private void newAmountReceived(int amount){
+
+    }
+
     public class TCPConnectionHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what==1){
-                try {
-                    TreasureChest treasureChest = ParserUtils.getTreasureChestFromJSONObject((JSONObject)msg.obj);
-                    textNumber.setText(""+treasureChest.getNumber());
-                    textLat.setText(""+treasureChest.getLatitude());
-                    textLong.setText(""+treasureChest.getLongitude());
-                    textMoney.setText(""+treasureChest.getMoney());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            obtainReceivedMessage(msg);
         }
     }
 

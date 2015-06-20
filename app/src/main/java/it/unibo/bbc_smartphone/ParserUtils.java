@@ -45,13 +45,13 @@ public class ParserUtils {
         jsonObject.put("latitude", latitude);
         jsonObject.put("longitude", longitude);
         jsonObject.put("idPlayer", idPlayer);
-        jsonObject.put("messageType", "SENDPOSITION");
+        jsonObject.put("messageType", 1);
         return jsonObject;
     }
 
     public static JSONObject getConfirmOrRefuseCooperationMsg(String toSend, int idPlayer) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("messageType", "CONFIRMORREFUSECOOP");
+        jsonObject.put("messageType", 2);
         jsonObject.put("idPlayer", idPlayer);
         jsonObject.put("response", toSend);
         return jsonObject;
@@ -67,7 +67,7 @@ public class ParserUtils {
 
     public static JSONObject getAlertToSend(Alert alert) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("messageType", "SENDALERT");
+        jsonObject.put("messageType", 3);
         jsonObject.put("idPlayer", alert.getIdPlayer());
         jsonObject.put("latitude", alert.getLatitude());
         jsonObject.put("longitude", alert.getLongitude());

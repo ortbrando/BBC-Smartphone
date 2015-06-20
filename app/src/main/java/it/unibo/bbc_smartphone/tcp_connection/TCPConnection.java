@@ -1,12 +1,17 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.activity.MainActivity;
+import it.unibo.bbc_smartphone.model.Alert;
 
 /**
  * Created by brando on 04/06/2015.
@@ -39,6 +44,29 @@ public class TCPConnection extends Thread {
         if(outToServer!=null){
             outToServer.writeBytes(s);
         }
+    }
+
+    public void sendInitialisationMsg() throws JSONException, IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 0);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
+    }
+
+    public void sendPositionToServer(long latitude, long longitude, int idPlayer) throws JSONException, IOException {
+        JSONObject jsonObject = ParserUtils.getPositionToSend(latitude, longitude,idPlayer);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
+    }
+    public void sendConfirmRefuseCooperationToServer(String toSend, int idPlayer) throws JSONException, IOException {
+        JSONObject jsonObject = ParserUtils.getConfirmOrRefuseCooperationMsg(toSend, idPlayer);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
+    }
+    public void sendAlertToServer(Alert alert) throws JSONException, IOException {
+        JSONObject jsonObject = ParserUtils.getAlertToSend(alert);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
     }
 }
 
