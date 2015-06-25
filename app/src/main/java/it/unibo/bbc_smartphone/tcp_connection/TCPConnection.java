@@ -13,9 +13,6 @@ import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.activity.MainActivity;
 import it.unibo.bbc_smartphone.model.Alert;
 
-/**
- * Created by brando on 04/06/2015.
- */
 public class TCPConnection extends Thread {
     private DataOutputStream outToServer;
     private MainActivity.TCPConnectionHandler tcpConnectionHandler;
@@ -28,7 +25,7 @@ public class TCPConnection extends Thread {
 
     @Override
     public void run(){
-        Socket clientSocket = null;
+        Socket clientSocket;
         try {
             clientSocket = new Socket(serverIP, port);
             outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -40,11 +37,23 @@ public class TCPConnection extends Thread {
         }
     }
 
-    public void sendToServer(String s) throws IOException {
-        if(outToServer!=null){
-            outToServer.writeBytes(s);
-        }
+    public void sendPositionToServer(long latitude, long longitude, int idPlayer) throws JSONException, IOException {
+        JSONObject jsonObject = ParserUtils.getPositionToSend(latitude, longitude,idPlayer);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
     }
+
+
+    public void sendConfirmRefuseCooperationToServer(String toSend, int idPlayer) throws JSONException, IOException {
+        JSONObject jsonObject = ParserUtils.getConfirmOrRefuseCooperationMsg(toSend, idPlayer);
+        String stringToSend = jsonObject.toString() + '\n';
+        outToServer.writeBytes(stringToSend);
+    }
+
+
+
+
+
 
     public void sendInitialisationMsg() throws JSONException, IOException {
         JSONObject jsonObject = new JSONObject();
@@ -53,16 +62,6 @@ public class TCPConnection extends Thread {
         outToServer.writeBytes(stringToSend);
     }
 
-    public void sendPositionToServer(long latitude, long longitude, int idPlayer) throws JSONException, IOException {
-        JSONObject jsonObject = ParserUtils.getPositionToSend(latitude, longitude,idPlayer);
-        String stringToSend = jsonObject.toString() + '\n';
-        outToServer.writeBytes(stringToSend);
-    }
-    public void sendConfirmRefuseCooperationToServer(String toSend, int idPlayer) throws JSONException, IOException {
-        JSONObject jsonObject = ParserUtils.getConfirmOrRefuseCooperationMsg(toSend, idPlayer);
-        String stringToSend = jsonObject.toString() + '\n';
-        outToServer.writeBytes(stringToSend);
-    }
     public void sendAlertToServer(Alert alert) throws JSONException, IOException {
         JSONObject jsonObject = ParserUtils.getAlertToSend(alert);
         String stringToSend = jsonObject.toString() + '\n';

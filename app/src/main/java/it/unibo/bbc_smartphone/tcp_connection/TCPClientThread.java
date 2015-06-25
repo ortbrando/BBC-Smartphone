@@ -1,7 +1,5 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,9 +9,6 @@ import java.io.IOException;
 import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.activity.MainActivity;
 
-/**
- * Created by brando on 04/06/2015.
- */
 public class TCPClientThread extends Thread {
     private BufferedReader inFromServer;
     private MainActivity.TCPConnectionHandler tcpConnectionHandler;
