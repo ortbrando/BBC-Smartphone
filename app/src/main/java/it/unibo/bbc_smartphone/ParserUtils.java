@@ -40,12 +40,20 @@ public class ParserUtils {
         return match;
     }
 
-    public static JSONObject getPositionToSend(long latitude, long longitude, int idPlayer) throws JSONException {
+    public static JSONObject getPositionToSend(double latitude, double longitude, int idPlayer) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("latitude", latitude);
         jsonObject.put("longitude", longitude);
         jsonObject.put("idPlayer", idPlayer);
         jsonObject.put("messageType", 1);
+        return jsonObject;
+    }
+
+    public static JSONObject getPositionToSend(double latitude, double longitude) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("latitude", latitude);
+        jsonObject.put("longitude", longitude);
+        jsonObject.put("messageType", 5);
         return jsonObject;
     }
 
@@ -89,5 +97,60 @@ public class ParserUtils {
 
     public static int getNewAmount(JSONObject jsonObject) throws JSONException {
         return jsonObject.getInt("amount");
+    }
+
+
+
+    //TO SEND TO GLASSES PARSERS
+
+
+
+    public static JSONObject getTreasureChestJSONObject(TreasureChest treasureChest) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 1);
+        jsonObject.put("number", treasureChest.getNumber());
+        jsonObject.put("latitude", treasureChest.getLatitude());
+        jsonObject.put("longitude", treasureChest.getLongitude());
+        jsonObject.put("money", treasureChest.getMoney());
+        jsonObject.put("state", treasureChest.getState());
+        return jsonObject;
+    }
+
+    public static JSONObject getMatchJSONObject(Match match) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 0);
+        jsonObject.put("points", 0);
+        jsonObject.put("maxPoints", match.getMaxPoints());
+        JSONArray treasuresArray = new JSONArray();
+        for(TreasureChest t : match.getTreasureChests()){
+            JSONObject treasure = new JSONObject();
+            treasure.put("latitude", t.getLatitude());
+            treasure.put("longitude", t.getLongitude());
+            treasuresArray.put(treasure);
+        }
+        jsonObject.put("treasureChests", treasuresArray);
+        return jsonObject;
+    }
+
+    public static JSONObject getResponseJSONObject(String toSend) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 2);
+        jsonObject.put("response", toSend);
+        return null;
+    }
+
+    public static JSONObject getThiefJSONObject(int moneyToSteal) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 3);
+        jsonObject.put("amount", moneyToSteal);
+        return jsonObject;
+    }
+
+    public static JSONObject getAmountReducedJSONObject(int amount) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 4);
+        jsonObject.put("amount", amount);
+
+        return jsonObject;
     }
 }

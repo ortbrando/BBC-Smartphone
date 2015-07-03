@@ -23,6 +23,7 @@ import it.unibo.bbc_smartphone.R;
 import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
 import it.unibo.bbc_smartphone.model.Alert;
 import it.unibo.bbc_smartphone.model.Match;
+import it.unibo.bbc_smartphone.model.Model;
 import it.unibo.bbc_smartphone.model.TreasureChest;
 import it.unibo.bbc_smartphone.tcp_connection.TCPConnection;
 import it.unibo.bbc_smartphone.gps_utils.*;
@@ -35,6 +36,7 @@ public class MainActivity extends ActionBarActivity  {
     private TextView textLong;
     private TextView textMoney;
     private Button button;
+    private Model model;
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
@@ -43,6 +45,8 @@ public class MainActivity extends ActionBarActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.model = new Model();
 
         this.textNumber = (TextView)findViewById(R.id.textNumber);
         this.textLat = (TextView)findViewById(R.id.textLat);
@@ -59,18 +63,6 @@ public class MainActivity extends ActionBarActivity  {
 
         //BT Connection is initialized
         //this.initBluetoothConnection();
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    connection.sendToServer("INIT");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
     }
 
     private void initGPSService(){
@@ -154,7 +146,7 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     private void matchReceived(Match match){
-        //COOPERATION LAYER CODE HERE
+        this.model.setMatch(match);
     }
 
     private void treasureReceived(TreasureChest treasureChest){

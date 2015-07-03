@@ -25,4 +25,8 @@ public class BluetoothUtils {
             connectedThread.write(locationToSend.getBytes());
         }
     }
+
+
+
+
 }
