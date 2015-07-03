@@ -49,13 +49,7 @@ public class ParserUtils {
         return jsonObject;
     }
 
-    public static JSONObject getPositionToSend(double latitude, double longitude) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("latitude", latitude);
-        jsonObject.put("longitude", longitude);
-        jsonObject.put("messageType", 5);
-        return jsonObject;
-    }
+
 
     public static JSONObject getConfirmOrRefuseCooperationMsg(String toSend, int idPlayer) throws JSONException {
         JSONObject jsonObject = new JSONObject();
@@ -151,6 +145,14 @@ public class ParserUtils {
         jsonObject.put("messageType", 4);
         jsonObject.put("amount", amount);
 
+        return jsonObject;
+    }
+
+    public static JSONObject getPositionToSend(double latitude, double longitude) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("latitude", latitude);
+        jsonObject.put("longitude", longitude);
+        jsonObject.put("messageType", 5);
         return jsonObject;
     }
 }
