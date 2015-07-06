@@ -44,6 +44,12 @@ public class BluetoothUtils {
         }
     }
 
+    public void sendTreasureChestToMoverioNotPresent(TreasureChest treasureChest) throws JSONException {
+        if(this.connectedThread!=null) {
+            connectedThread.write(ParserUtils.getTreasureChestJSONObjectNotPresent(treasureChest).toString().getBytes());
+        }
+    }
+
     public void sendThiefToMoverio(int amount) throws JSONException {
         if(this.connectedThread!=null) {
             connectedThread.write(ParserUtils.getThiefJSONObject(amount).toString().getBytes());

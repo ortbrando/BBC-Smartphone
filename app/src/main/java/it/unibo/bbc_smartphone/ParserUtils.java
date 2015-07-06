@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone;
 
+import android.util.Pair;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,13 +20,13 @@ import it.unibo.bbc_smartphone.model.TreasureChest;
  * Created by matteo.aldini on 15/06/2015.
  */
 public class ParserUtils {
-    public static TreasureChest getTreasureChestFromJSONObject(JSONObject jsonObject) throws JSONException {
+    public static Pair<TreasureChest, Integer> getTreasureChestFromJSONObject(JSONObject jsonObject) throws JSONException {
         TreasureChest treasureChest = new TreasureChest(jsonObject.getInt("number"),
             jsonObject.getDouble("latitude"),
                 jsonObject.getDouble("longitude"),
                     jsonObject.getInt("money"),
                         jsonObject.getString("state"));
-        return treasureChest;
+        return new Pair<>(treasureChest, jsonObject.getInt("idPlayer"));
     }
 
     public static Match getMatchFromJSONObject(JSONObject jsonObject) throws JSONException {
@@ -156,6 +158,17 @@ public class ParserUtils {
         jsonObject.put("latitude", latitude);
         jsonObject.put("longitude", longitude);
         jsonObject.put("messageType", 5);
+        return jsonObject;
+    }
+
+    public static JSONObject getTreasureChestJSONObjectNotPresent(TreasureChest treasureChest) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 6);
+        jsonObject.put("number", treasureChest.getNumber());
+        jsonObject.put("latitude", treasureChest.getLatitude());
+        jsonObject.put("longitude", treasureChest.getLongitude());
+        jsonObject.put("money", treasureChest.getMoney());
+        jsonObject.put("state", treasureChest.getState());
         return jsonObject;
     }
 }

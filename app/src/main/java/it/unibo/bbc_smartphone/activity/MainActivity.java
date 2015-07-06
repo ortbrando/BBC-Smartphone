@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,7 +133,7 @@ public class MainActivity extends ActionBarActivity  {
                 this.matchReceived((Match) msg.obj);
                 break;
             case 1:
-                this.treasureReceived((TreasureChest) msg.obj);
+                this.treasureReceived((Pair<TreasureChest,Integer>) msg.obj);
                 break;
             case 2:
                 this.confirmOrRefuseMsgReceived((Boolean) msg.obj);
@@ -154,9 +155,11 @@ public class MainActivity extends ActionBarActivity  {
         BluetoothUtils.getInstance().sendMatchToMoverio(match);
     }
 
-    private void treasureReceived(TreasureChest treasureChest) throws JSONException {
-        this.model.treasureReceived(treasureChest);
-        BluetoothUtils.getInstance().sendTreasureChestToMoverio(treasureChest);
+    private void treasureReceived(Pair<TreasureChest, Integer> treasureChest) throws JSONException {
+        if(treasureChest.second==this.model.getPlayerId()){
+            this.model.treasureReceived(treasureChest.first);
+            BluetoothUtils.getInstance().sendTreasureChestToMoverio(treasureChest.first);
+        }
     }
 
     private void confirmOrRefuseMsgReceived(boolean confirm){
