@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.R;
+import it.unibo.bbc_smartphone.bluetooth_utils.BluetoothUtils;
 import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
 import it.unibo.bbc_smartphone.model.Alert;
 import it.unibo.bbc_smartphone.model.Match;
@@ -59,10 +60,10 @@ public class MainActivity extends ActionBarActivity  {
         this.initGPSService();
 
         //TCP connection is initialized
-        this.initTCPConnection();
+        //this.initTCPConnection();
 
         //BT Connection is initialized
-        //this.initBluetoothConnection();
+        this.initBluetoothConnection();
     }
 
     private void initGPSService(){
@@ -122,7 +123,7 @@ public class MainActivity extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    private void obtainReceivedMessage(Message msg){
+    private void obtainReceivedMessage(Message msg) throws JSONException {
         switch (msg.what){
             case 0:
                 this.matchReceived((Match) msg.obj);
@@ -145,8 +146,9 @@ public class MainActivity extends ActionBarActivity  {
         }
     }
 
-    private void matchReceived(Match match){
+    private void matchReceived(Match match) throws JSONException {
         this.model.setMatch(match);
+        BluetoothUtils.getInstance().sendMatchToMoverio(match);
     }
 
     private void treasureReceived(TreasureChest treasureChest){
@@ -172,14 +174,20 @@ public class MainActivity extends ActionBarActivity  {
     public class TCPConnectionHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            obtainReceivedMessage(msg);
+            try {
+                obtainReceivedMessage(msg);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public class BluetoothConnectionHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+            if(msg.what==0){
+                initTCPConnection();
+            }
         }
     }
 

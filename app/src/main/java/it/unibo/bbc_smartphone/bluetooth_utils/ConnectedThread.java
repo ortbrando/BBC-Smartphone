@@ -1,5 +1,6 @@
 package it.unibo.bbc_smartphone.bluetooth_utils;
 import android.bluetooth.BluetoothSocket;
+import android.os.Message;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ public class ConnectedThread extends Thread {
     public ConnectedThread(BluetoothSocket socket, MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler) {
         mmSocket = socket;
         this.bluetoothConnectionHandler = bluetoothConnectionHandler;
+        this.bluetoothConnectionHandler.obtainMessage(0);
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
 

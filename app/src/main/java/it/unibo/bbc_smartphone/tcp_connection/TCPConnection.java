@@ -32,7 +32,10 @@ public class TCPConnection extends Thread {
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             TCPClientThread tcpClientThread = new TCPClientThread(inFromServer, tcpConnectionHandler);
             tcpClientThread.start();
+            this.sendInitialisationMsg();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -68,4 +71,3 @@ public class TCPConnection extends Thread {
         outToServer.writeBytes(stringToSend);
     }
 }
-
