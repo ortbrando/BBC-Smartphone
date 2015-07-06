@@ -41,6 +41,8 @@ public class MainActivity extends ActionBarActivity  {
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
     private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
+    private final static String MAC_ADDRESS_OPO = "c0:ee:fb:35:0b:16";
+    private final static String MAC_ADDRESS_MOTO = "E4:90:7E:E5:6B:28";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
