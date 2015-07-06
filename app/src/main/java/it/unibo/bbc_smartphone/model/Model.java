@@ -24,4 +24,8 @@ public class Model {
     public int getPlayerId(){
         return this.match.getId();
     }
+
+    public void treasureReceived(TreasureChest treasureChest) {
+        this.match.updateTreasureChest(treasureChest);
+    }
 }

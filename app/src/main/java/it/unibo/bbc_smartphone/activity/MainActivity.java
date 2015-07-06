@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity  {
     private Model model;
     private final static int REQUEST_ENABLE_BT = 10;
     private final static String MAC_ADDRESS_SAMSUNG = "B8:C6:8E:75:BF:0E";
-    private final static String MAC_ADDRESS = "88:33:14:22:25:3C";
+    private final static String MAC_ADDRESS_MOVERIO = "88:33:14:40:74:4B";
     private final static String MAC_ADDRESS_OPO = "C0:EE:FB:35:0B:16";
     private final static String MAC_ADDRESS_MOTO = "E4:90:7E:E5:6B:28";
 
@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity  {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }else{
             BluetoothConnectionHandler bluetoothConnectionHandler = new BluetoothConnectionHandler();
-            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_OPO), bluetoothConnectionHandler);
+            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO), bluetoothConnectionHandler);
             thread.start();
         }
     }
@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         BluetoothConnectionHandler bluetoothConnectionHandler = new BluetoothConnectionHandler();
-        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_OPO), bluetoothConnectionHandler);
+        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO), bluetoothConnectionHandler);
         thread.start();
     }
 
@@ -154,8 +154,9 @@ public class MainActivity extends ActionBarActivity  {
         BluetoothUtils.getInstance().sendMatchToMoverio(match);
     }
 
-    private void treasureReceived(TreasureChest treasureChest){
-        //COOPERATION LAYER CODE HERE
+    private void treasureReceived(TreasureChest treasureChest) throws JSONException {
+        this.model.treasureReceived(treasureChest);
+        BluetoothUtils.getInstance().sendTreasureChestToMoverio(treasureChest);
     }
 
     private void confirmOrRefuseMsgReceived(boolean confirm){

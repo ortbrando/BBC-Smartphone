@@ -1,7 +1,9 @@
 package it.unibo.bbc_smartphone.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,7 +14,7 @@ public class Match {
     private int maxPoints;
     private Calendar dateStart;
     private Calendar dateEnd;
-    private Set<TreasureChest> treasureChests;
+    private List<TreasureChest> treasureChests;
     private Player player1;
     private Player player2;
 
@@ -21,7 +23,7 @@ public class Match {
         this.maxPoints = maxPoints;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
-        treasureChests = new HashSet<>();
+        treasureChests = new ArrayList<>();
         this.player1 = new Player(idPlayer);
     }
 
@@ -57,15 +59,25 @@ public class Match {
         this.dateEnd = dateEnd;
     }
 
-    public Set<TreasureChest> getTreasureChests() {
+    public List<TreasureChest> getTreasureChests() {
         return treasureChests;
     }
 
-    public void setTreasureChests(Set<TreasureChest> treasureChests) {
+    public void setTreasureChests(List<TreasureChest> treasureChests) {
         this.treasureChests = treasureChests;
     }
 
     public int getId(){
         return this.player1.getId_number();
+    }
+
+    public void updateTreasureChest(TreasureChest treasureChest){
+        int i = 0;
+        for(TreasureChest t : treasureChests){
+            if(t.getNumber() == treasureChest.getNumber()){
+                treasureChests.set(i,treasureChest);
+            }
+            i++;
+        }
     }
 }

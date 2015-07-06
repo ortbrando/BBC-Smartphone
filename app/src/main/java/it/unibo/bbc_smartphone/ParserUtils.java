@@ -4,8 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.bbc_smartphone.model.Alert;
@@ -20,7 +22,8 @@ public class ParserUtils {
         TreasureChest treasureChest = new TreasureChest(jsonObject.getInt("number"),
             jsonObject.getLong("latitude"),
                 jsonObject.getLong("longitude"),
-                    jsonObject.getInt("money"));
+                    jsonObject.getInt("money"),
+                        jsonObject.getInt("state"));
         return treasureChest;
     }
 
@@ -29,10 +32,10 @@ public class ParserUtils {
                 jsonObject.getInt("maxPoints"), Calendar.getInstance(), null, jsonObject.getInt("idPlayer"));
 
         JSONArray treasureArray = jsonObject.getJSONArray("treasureChests");
-        Set<TreasureChest> treasureChestSet = new HashSet<>();
+        List<TreasureChest> treasureChestSet = new ArrayList<>();
         for(int i=0; i<treasureArray.length();i++){
             JSONObject object = treasureArray.getJSONObject(i);
-            TreasureChest treasureChest = new TreasureChest(0, object.getLong("latitude"), object.getLong("longitude"), 0);
+            TreasureChest treasureChest = new TreasureChest(0, object.getLong("latitude"), object.getLong("longitude"), 0, 0);
             treasureChestSet.add(treasureChest);
         }
         match.setTreasureChests(treasureChestSet);
