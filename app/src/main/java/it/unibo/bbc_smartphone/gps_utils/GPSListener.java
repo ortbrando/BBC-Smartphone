@@ -18,7 +18,7 @@ public class GPSListener implements LocationListener {
     }
     public void onLocationChanged(Location location) {
         // Called when a new location is found by the network location provider.
-        this.gpsServiceHandler.obtainMessage(1, location);
+        this.gpsServiceHandler.obtainMessage(0, location).sendToTarget();
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {

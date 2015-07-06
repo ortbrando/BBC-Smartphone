@@ -42,7 +42,7 @@ public class TCPConnection extends Thread {
         }
     }
 
-    public void sendPositionToServer(long latitude, long longitude, int idPlayer) throws JSONException, IOException {
+    public void sendPositionToServer(double latitude, double longitude, int idPlayer) throws JSONException, IOException {
         JSONObject jsonObject = ParserUtils.getPositionToSend(latitude, longitude,idPlayer);
         String stringToSend = jsonObject.toString() + '\n';
         outToServer.writeBytes(stringToSend);

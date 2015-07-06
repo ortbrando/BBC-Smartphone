@@ -2,6 +2,7 @@ package it.unibo.bbc_smartphone.activity;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -197,7 +198,18 @@ public class MainActivity extends ActionBarActivity  {
     public class GPSServiceHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+            if(msg.what==0){
+                Log.i("HANDLER", "GPS POS CHANGED");
+                Location location = (Location) msg.obj;
+                try {
+                    BluetoothUtils.getInstance().sendLocationToMoverio(location.getLatitude(), location.getLongitude());
+                    connection.sendPositionToServer(location.getLatitude(), location.getLongitude(), model.getPlayerId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

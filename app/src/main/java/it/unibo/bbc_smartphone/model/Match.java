@@ -65,6 +65,7 @@ public class Match {
         this.treasureChests = treasureChests;
     }
 
-
-
+    public int getId(){
+        return this.player1.getId_number();
+    }
 }

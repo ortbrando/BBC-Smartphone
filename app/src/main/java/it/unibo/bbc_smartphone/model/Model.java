@@ -20,4 +20,8 @@ public class Model {
     public void setMatch(Match match) {
         this.match = match;
     }
+
+    public int getPlayerId(){
+        return this.match.getId();
+    }
 }
