@@ -20,10 +20,10 @@ import it.unibo.bbc_smartphone.model.TreasureChest;
 public class ParserUtils {
     public static TreasureChest getTreasureChestFromJSONObject(JSONObject jsonObject) throws JSONException {
         TreasureChest treasureChest = new TreasureChest(jsonObject.getInt("number"),
-            jsonObject.getLong("latitude"),
-                jsonObject.getLong("longitude"),
+            jsonObject.getDouble("latitude"),
+                jsonObject.getDouble("longitude"),
                     jsonObject.getInt("money"),
-                        jsonObject.getInt("state"));
+                        jsonObject.getString("state"));
         return treasureChest;
     }
 
@@ -35,7 +35,7 @@ public class ParserUtils {
         List<TreasureChest> treasureChestSet = new ArrayList<>();
         for(int i=0; i<treasureArray.length();i++){
             JSONObject object = treasureArray.getJSONObject(i);
-            TreasureChest treasureChest = new TreasureChest(0, object.getLong("latitude"), object.getLong("longitude"), 0, 0);
+            TreasureChest treasureChest = new TreasureChest(0, object.getDouble("latitude"), object.getDouble("longitude"), 0, "UNVISITED");
             treasureChestSet.add(treasureChest);
         }
         match.setTreasureChests(treasureChestSet);
@@ -133,7 +133,7 @@ public class ParserUtils {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messageType", 2);
         jsonObject.put("response", toSend);
-        return null;
+        return jsonObject;
     }
 
     public static JSONObject getThiefJSONObject(int moneyToSteal) throws JSONException{

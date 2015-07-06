@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +44,7 @@ public class TCPClientThread extends Thread {
                 break;
             case 1:
                 messageType=1;
+                Log.i("REC", "TREASURECHESTRECEIVED");
                 object = ParserUtils.getTreasureChestFromJSONObject(jsonObject);
                 break;
             case 2:
