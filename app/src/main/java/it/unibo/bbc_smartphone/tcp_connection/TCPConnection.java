@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone.tcp_connection;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +18,7 @@ import it.unibo.bbc_smartphone.model.Alert;
 public class TCPConnection extends Thread {
     private DataOutputStream outToServer;
     private MainActivity.TCPConnectionHandler tcpConnectionHandler;
-    private static final String serverIP = "192.168.2.104";
+    private static final String serverIP = "192.168.43.221";
     private static final int port = 6789;
 
     public TCPConnection(MainActivity.TCPConnectionHandler tcpConnectionHandler) {
@@ -62,6 +64,7 @@ public class TCPConnection extends Thread {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messageType", 0);
         String stringToSend = jsonObject.toString() + '\n';
+        Log.i("SENDINIT", stringToSend);
         outToServer.writeBytes(stringToSend);
     }
 

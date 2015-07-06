@@ -20,7 +20,7 @@ public class ConnectedThread extends Thread {
     public ConnectedThread(BluetoothSocket socket, MainActivity.BluetoothConnectionHandler bluetoothConnectionHandler) {
         mmSocket = socket;
         this.bluetoothConnectionHandler = bluetoothConnectionHandler;
-        this.bluetoothConnectionHandler.obtainMessage(0);
+        this.bluetoothConnectionHandler.obtainMessage(0).sendToTarget();
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
 
