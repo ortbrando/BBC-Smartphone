@@ -4,6 +4,7 @@ import android.os.Message;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.Parser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,6 +68,10 @@ public class ConnectedThread extends Thread {
             case 1:
                 messageType = 1;
                 obj = ParserUtils.getConfirmedOrRefused(jsonObject);
+                break;
+            case 2:
+                messageType = 2;
+                obj = ParserUtils.getAlertMsgFromJSONObject(jsonObject);
                 break;
         }
         this.bluetoothConnectionHandler.obtainMessage(messageType, obj).sendToTarget();

@@ -171,4 +171,17 @@ public class ParserUtils {
         jsonObject.put("state", treasureChest.getState());
         return jsonObject;
     }
+
+    public static JSONObject getAlertJSONObjectToSend(Alert alert) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 7);
+        jsonObject.put("message", alert.getMessage());
+        return jsonObject;
+    }
+
+    //RECEIVE FROM GLASSES
+
+    public static String getAlertMsgFromJSONObject(JSONObject jsonObject) throws JSONException {
+        return jsonObject.getString("message");
+    }
 }

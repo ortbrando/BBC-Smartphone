@@ -5,6 +5,7 @@ import android.util.Log;
 import org.json.JSONException;
 
 import it.unibo.bbc_smartphone.ParserUtils;
+import it.unibo.bbc_smartphone.model.Alert;
 import it.unibo.bbc_smartphone.model.Match;
 import it.unibo.bbc_smartphone.model.TreasureChest;
 
@@ -66,6 +67,12 @@ public class BluetoothUtils {
     public void sendAmountToMoverio(int amount) throws JSONException {
         if(this.connectedThread!=null) {
             connectedThread.write(ParserUtils.getAmountReducedJSONObject(amount).toString().getBytes());
+        }
+    }
+
+    public void sendAlertToMoverio(Alert alert) throws JSONException {
+        if(this.connectedThread!=null) {
+            connectedThread.write(ParserUtils.getAlertJSONObjectToSend(alert).toString().getBytes());
         }
     }
 }

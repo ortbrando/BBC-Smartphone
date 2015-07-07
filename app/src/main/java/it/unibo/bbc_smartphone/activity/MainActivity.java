@@ -170,8 +170,8 @@ public class MainActivity extends ActionBarActivity  {
         }
     }
 
-    private void alertReceived(Alert alert){
-        //COOPERATION LAYER CODE HERE
+    private void alertReceived(Alert alert) throws JSONException {
+        BluetoothUtils.getInstance().sendAlertToMoverio(alert);
     }
 
     private void moneyTheftReceived(int amount){
@@ -220,6 +220,16 @@ public class MainActivity extends ActionBarActivity  {
                         }
                     }
                     break;
+                case 2:
+                    String message = (String) msg.obj;
+                    Alert alert = new Alert(model.getPlayerLatitude(), model.getPlayerLongitude(), message, model.getPlayerId());
+                    try {
+                        connection.sendAlertToServer(alert);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     }
@@ -232,6 +242,7 @@ public class MainActivity extends ActionBarActivity  {
                 Location location = (Location) msg.obj;
                 try {
                     if(model.getMatch()!=null){
+                        model.setPosition(location.getLatitude(), location.getLongitude());
                         connection.sendPositionToServer(location.getLatitude(), location.getLongitude(), model.getPlayerId());
                         BluetoothUtils.getInstance().sendLocationToMoverio(location.getLatitude(), location.getLongitude());
                     }

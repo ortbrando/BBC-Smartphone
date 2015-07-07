@@ -36,4 +36,16 @@ public class Model {
     public Match getMatch(){
         return this.match;
     }
+
+    public void setPosition(double latitude, double longitude) {
+        this.match.setPosition(latitude, longitude);
+    }
+
+    public double getPlayerLatitude(){
+        return this.match.getPlayerLatitude();
+    }
+
+    public double getPlayerLongitude(){
+        return this.match.getPlayerLongitude();
+    }
 }

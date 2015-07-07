@@ -84,4 +84,17 @@ public class Match {
     public void reduceAmount(int amount) {
         this.maxPoints=amount;
     }
+
+    public void setPosition(double latitude, double longitude) {
+        this.player1.setLatitude(latitude);
+        this.player1.setLongitude(longitude);
+    }
+
+    public double getPlayerLatitude() {
+        return this.player1.getLatitude();
+    }
+
+    public double getPlayerLongitude() {
+        return this.player1.getLongitude();
+    }
 }

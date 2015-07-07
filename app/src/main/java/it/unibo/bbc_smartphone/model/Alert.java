@@ -9,7 +9,7 @@ public class Alert {
     private String message;
     private int idPlayer;
 
-    public Alert(long latitude, long longitude, String message, int idPlayer) {
+    public Alert(double latitude, double longitude, String message, int idPlayer) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.message = message;
@@ -20,7 +20,7 @@ public class Alert {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -28,7 +28,7 @@ public class Alert {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
