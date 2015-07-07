@@ -75,4 +75,10 @@ public class BluetoothUtils {
             connectedThread.write(ParserUtils.getAlertJSONObjectToSend(alert).toString().getBytes());
         }
     }
+
+    public void sendThiefToMoverioNotMe(int points) {
+        if(this.connectedThread!=null) {
+            connectedThread.write(ParserUtils.getThiefJSONObjectNotMe(points).toString().getBytes());
+        }
+    }
 }

@@ -57,7 +57,7 @@ public class TCPClientThread extends Thread {
                 break;
             case 4:
                 messageType=4;
-                object = ParserUtils.getMoneyTheft(jsonObject);
+                object = ParserUtils.getThief(jsonObject);
                 break;
             case 5:
                 messageType=5;
