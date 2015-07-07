@@ -44,7 +44,7 @@ public class TCPClientThread extends Thread {
                 break;
             case 1:
                 messageType=1;
-                Log.i("REC", "TREASURECHESTRECEIVED");
+                Log.i("TREASURECHESTRECEIVED", s);
                 object = ParserUtils.getTreasureChestFromJSONObject(jsonObject);
                 break;
             case 2:
