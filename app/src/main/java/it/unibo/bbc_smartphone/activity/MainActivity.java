@@ -156,9 +156,11 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     private void treasureReceived(Pair<TreasureChest, Integer> treasureChest) throws JSONException {
+        this.model.treasureReceived(treasureChest.first);
         if(treasureChest.second==this.model.getPlayerId()){
-            this.model.treasureReceived(treasureChest.first);
             BluetoothUtils.getInstance().sendTreasureChestToMoverio(treasureChest.first);
+        }else {
+            BluetoothUtils.getInstance().sendTreasureChestToMoverioNotPresent(treasureChest.first);
         }
     }
 
