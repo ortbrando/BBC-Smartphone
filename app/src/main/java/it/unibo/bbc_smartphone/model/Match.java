@@ -1,5 +1,7 @@
 package it.unibo.bbc_smartphone.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -74,8 +76,14 @@ public class Match {
     public void updateTreasureChest(TreasureChest treasureChest){
         int i = 0;
         for(TreasureChest t : treasureChests){
-            if(t.getNumber() == treasureChest.getNumber()){
+            if(t.getLatitude() == treasureChest.getLatitude()
+                    &&t.getLongitude() == treasureChest.getLongitude()){
                 treasureChests.set(i,treasureChest);
+                Log.i("STATE", TreasureChest.State.OPEN.name());
+                if(treasureChest.getState().equals(TreasureChest.State.OPEN)){
+                    setPoints(getPoints()+treasureChest.getMoney());
+                    Log.i("POINTS", ""+this.getPoints());
+                }
             }
             i++;
         }

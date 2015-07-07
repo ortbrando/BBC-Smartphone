@@ -180,10 +180,13 @@ public class MainActivity extends ActionBarActivity  {
     private void moneyTheftReceived(Thief thief) throws JSONException {
         int points = this.model.getMatch().getPoints()-thief.getAmount();
         this.model.getMatch().setPoints(points);
+        Log.i(""+points, "points");
         if(thief.getIdPlayer()==this.model.getPlayerId()){
             BluetoothUtils.getInstance().sendThiefToMoverio(points);
+            Log.i("", "ID");
         }else {
             BluetoothUtils.getInstance().sendThiefToMoverioNotMe(points);
+            Log.i("", "NO ID");
         }
 
     }

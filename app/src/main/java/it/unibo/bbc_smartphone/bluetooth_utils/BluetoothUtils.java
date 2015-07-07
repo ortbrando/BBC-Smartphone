@@ -76,7 +76,7 @@ public class BluetoothUtils {
         }
     }
 
-    public void sendThiefToMoverioNotMe(int points) {
+    public void sendThiefToMoverioNotMe(int points) throws JSONException {
         if(this.connectedThread!=null) {
             connectedThread.write(ParserUtils.getThiefJSONObjectNotMe(points).toString().getBytes());
         }
