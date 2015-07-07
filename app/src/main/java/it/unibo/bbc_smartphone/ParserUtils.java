@@ -65,11 +65,11 @@ public class ParserUtils {
     }
 
     public static boolean getConfirmedOrRefused(JSONObject jsonObject) throws JSONException {
-        if(jsonObject.getString("response").equals("OK")){
-            return true;
-        }else {
-            return false;
-        }
+            if(jsonObject.getString("response").equals("OK")){
+                return true;
+            }else {
+                return false;
+            }
     }
 
     public static JSONObject getAlertToSend(Alert alert) throws JSONException {

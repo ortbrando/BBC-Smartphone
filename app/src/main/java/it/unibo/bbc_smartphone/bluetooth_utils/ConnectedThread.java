@@ -2,10 +2,15 @@ package it.unibo.bbc_smartphone.bluetooth_utils;
 import android.bluetooth.BluetoothSocket;
 import android.os.Message;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
+import it.unibo.bbc_smartphone.ParserUtils;
 import it.unibo.bbc_smartphone.activity.MainActivity;
 
 /**
@@ -44,13 +49,27 @@ public class ConnectedThread extends Thread {
             try {
                 // Read from the InputStream
                 bytes = mmInStream.read(buffer);
-                // Send the obtained bytes to the UI activity
-                /*mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-                        .sendToTarget();*/
+                String str = new String(buffer, 0, bytes, "UTF-8");
+                this.receiveMessage(str);
             } catch (IOException e) {
                 break;
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    private void receiveMessage(String s) throws JSONException {
+        JSONObject jsonObject = new JSONObject(s);
+        int messageType = -1;
+        Object obj = null;
+        switch (jsonObject.getInt("messageType")){
+            case 1:
+                messageType = 1;
+                obj = ParserUtils.getConfirmedOrRefused(jsonObject);
+                break;
+        }
+        this.bluetoothConnectionHandler.obtainMessage(messageType, obj).sendToTarget();
     }
 
     /* Call this from the main activity to send data to the remote device */

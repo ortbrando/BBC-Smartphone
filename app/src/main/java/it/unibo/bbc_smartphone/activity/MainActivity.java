@@ -162,8 +162,12 @@ public class MainActivity extends ActionBarActivity  {
         }
     }
 
-    private void confirmOrRefuseMsgReceived(boolean confirm){
-        //COOPERATION LAYER CODE HERE
+    private void confirmOrRefuseMsgReceived(boolean confirm) throws JSONException {
+        if(confirm){
+            BluetoothUtils.getInstance().sendResponseToMoverio("OK");
+        }else {
+            BluetoothUtils.getInstance().sendResponseToMoverio("KO");
+        }
     }
 
     private void alertReceived(Alert alert){
@@ -192,9 +196,29 @@ public class MainActivity extends ActionBarActivity  {
     public class BluetoothConnectionHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what==0){
-                Log.i("HANDLER", "BT");
-                initTCPConnection();
+            switch (msg.what){
+                case 0:
+                    initTCPConnection();
+                    break;
+                case 1:
+                    if((boolean)msg.obj){
+                        try {
+                            connection.sendConfirmRefuseCooperationToServer("OK", model.getPlayerId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        try {
+                            connection.sendConfirmRefuseCooperationToServer("KO", model.getPlayerId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
             }
         }
     }
