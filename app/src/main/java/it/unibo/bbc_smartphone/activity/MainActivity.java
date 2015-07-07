@@ -178,8 +178,9 @@ public class MainActivity extends ActionBarActivity  {
         //COOPERATION LAYER CODE HERE
     }
 
-    private void newAmountReceived(int amount){
-        //COOPERATION LAYER CODE HERE
+    private void newAmountReceived(int amount) throws JSONException {
+        this.model.amountReduced(amount);
+        BluetoothUtils.getInstance().sendAmountToMoverio(amount);
     }
 
     public class TCPConnectionHandler extends Handler{

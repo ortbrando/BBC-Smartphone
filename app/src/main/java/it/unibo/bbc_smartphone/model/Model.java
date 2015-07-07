@@ -28,4 +28,8 @@ public class Model {
     public void treasureReceived(TreasureChest treasureChest) {
         this.match.updateTreasureChest(treasureChest);
     }
+
+    public void amountReduced(int amount) {
+        this.match.reduceAmount(amount);
+    }
 }

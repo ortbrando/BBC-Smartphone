@@ -80,4 +80,8 @@ public class Match {
             i++;
         }
     }
+
+    public void reduceAmount(int amount) {
+        this.maxPoints-=amount;
+    }
 }
