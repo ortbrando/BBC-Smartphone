@@ -231,8 +231,10 @@ public class MainActivity extends ActionBarActivity  {
                 Log.i("HANDLER", "GPS POS CHANGED");
                 Location location = (Location) msg.obj;
                 try {
-                    BluetoothUtils.getInstance().sendLocationToMoverio(location.getLatitude(), location.getLongitude());
-                    connection.sendPositionToServer(location.getLatitude(), location.getLongitude(), model.getPlayerId());
+                    if(model.getMatch()!=null){
+                        connection.sendPositionToServer(location.getLatitude(), location.getLongitude(), model.getPlayerId());
+                        BluetoothUtils.getInstance().sendLocationToMoverio(location.getLatitude(), location.getLongitude());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

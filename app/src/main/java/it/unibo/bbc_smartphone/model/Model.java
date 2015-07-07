@@ -32,4 +32,8 @@ public class Model {
     public void amountReduced(int amount) {
         this.match.reduceAmount(amount);
     }
+
+    public Match getMatch(){
+        return this.match;
+    }
 }

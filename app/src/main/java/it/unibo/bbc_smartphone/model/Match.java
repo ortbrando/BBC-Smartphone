@@ -82,6 +82,6 @@ public class Match {
     }
 
     public void reduceAmount(int amount) {
-        this.maxPoints-=amount;
+        this.maxPoints=amount;
     }
 }

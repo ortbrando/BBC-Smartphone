@@ -29,6 +29,7 @@ public class BluetoothUtils {
     public void sendLocationToMoverio(double latitude, double longitude) throws JSONException {
         if(this.connectedThread!=null) {
             connectedThread.write(ParserUtils.getPositionToSend(latitude, longitude).toString().getBytes());
+            Log.i("","send pos");
         }
     }
 
