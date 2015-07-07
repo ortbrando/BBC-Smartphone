@@ -14,6 +14,7 @@ import java.util.Set;
 
 import it.unibo.bbc_smartphone.model.Alert;
 import it.unibo.bbc_smartphone.model.Match;
+import it.unibo.bbc_smartphone.model.Thief;
 import it.unibo.bbc_smartphone.model.TreasureChest;
 
 /**
@@ -90,8 +91,8 @@ public class ParserUtils {
         return alert;
     }
 
-    public static int getMoneyTheft(JSONObject jsonObject) throws JSONException {
-        return jsonObject.getInt("amount");
+    public static Thief getThief(JSONObject jsonObject) throws JSONException {
+        return new Thief(jsonObject.getInt("amount"), jsonObject.getInt("idPlayer"));
     }
 
     public static int getNewAmount(JSONObject jsonObject) throws JSONException {
@@ -183,5 +184,12 @@ public class ParserUtils {
 
     public static String getAlertMsgFromJSONObject(JSONObject jsonObject) throws JSONException {
         return jsonObject.getString("message");
+    }
+
+    public static JSONObject getThiefJSONObjectNotMe(int points) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageType", 8);
+        jsonObject.put("amount", points);
+        return jsonObject;
     }
 }

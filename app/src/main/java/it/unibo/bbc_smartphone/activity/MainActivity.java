@@ -27,6 +27,7 @@ import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
 import it.unibo.bbc_smartphone.model.Alert;
 import it.unibo.bbc_smartphone.model.Match;
 import it.unibo.bbc_smartphone.model.Model;
+import it.unibo.bbc_smartphone.model.Thief;
 import it.unibo.bbc_smartphone.model.TreasureChest;
 import it.unibo.bbc_smartphone.tcp_connection.TCPConnection;
 import it.unibo.bbc_smartphone.gps_utils.*;
@@ -142,7 +143,7 @@ public class MainActivity extends ActionBarActivity  {
                 this.alertReceived((Alert) msg.obj);
                 break;
             case 4:
-                this.moneyTheftReceived((Integer) msg.obj);
+                this.moneyTheftReceived((Thief) msg.obj);
                 break;
             case 5:
                 this.newAmountReceived((Integer) msg.obj);
@@ -176,10 +177,15 @@ public class MainActivity extends ActionBarActivity  {
         BluetoothUtils.getInstance().sendAlertToMoverio(alert);
     }
 
-    private void moneyTheftReceived(int amount) throws JSONException {
-        int points = this.model.getMatch().getPoints()-amount;
+    private void moneyTheftReceived(Thief thief) throws JSONException {
+        int points = this.model.getMatch().getPoints()-thief.getAmount();
         this.model.getMatch().setPoints(points);
-        BluetoothUtils.getInstance().sendThiefToMoverio(points);
+        if(thief.getIdPlayer()==this.model.getPlayerId()){
+            BluetoothUtils.getInstance().sendThiefToMoverio(points);
+        }else {
+            BluetoothUtils.getInstance().sendThiefToMoverioNotMe(points);
+        }
+
     }
 
     private void newAmountReceived(int amount) throws JSONException {
