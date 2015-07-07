@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity  {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }else{
             BluetoothConnectionHandler bluetoothConnectionHandler = new BluetoothConnectionHandler();
-            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO), bluetoothConnectionHandler);
+            ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO ), bluetoothConnectionHandler);
             thread.start();
         }
     }
@@ -101,7 +101,7 @@ public class MainActivity extends ActionBarActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         BluetoothConnectionHandler bluetoothConnectionHandler = new BluetoothConnectionHandler();
-        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO), bluetoothConnectionHandler);
+        ConnectThread thread = new ConnectThread(mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS_MOVERIO ), bluetoothConnectionHandler);
         thread.start();
     }
 
