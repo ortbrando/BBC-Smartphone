@@ -174,8 +174,10 @@ public class MainActivity extends ActionBarActivity  {
         BluetoothUtils.getInstance().sendAlertToMoverio(alert);
     }
 
-    private void moneyTheftReceived(int amount){
-        //COOPERATION LAYER CODE HERE
+    private void moneyTheftReceived(int amount) throws JSONException {
+        int points = this.model.getMatch().getPoints()-amount;
+        this.model.getMatch().setPoints(points);
+        BluetoothUtils.getInstance().sendThiefToMoverio(points);
     }
 
     private void newAmountReceived(int amount) throws JSONException {
