@@ -25,6 +25,7 @@ import it.unibo.bbc_smartphone.R;
 import it.unibo.bbc_smartphone.bluetooth_utils.BluetoothUtils;
 import it.unibo.bbc_smartphone.bluetooth_utils.ConnectThread;
 import it.unibo.bbc_smartphone.model.Alert;
+import it.unibo.bbc_smartphone.model.Key;
 import it.unibo.bbc_smartphone.model.Match;
 import it.unibo.bbc_smartphone.model.Model;
 import it.unibo.bbc_smartphone.model.Thief;
@@ -160,8 +161,10 @@ public class MainActivity extends ActionBarActivity  {
         this.model.treasureReceived(treasureChest.first);
         if(treasureChest.second==this.model.getPlayerId()){
             BluetoothUtils.getInstance().sendTreasureChestToMoverio(treasureChest.first);
+            this.model.addKeyToPlayer1(treasureChest.first.getKey());
         }else {
             BluetoothUtils.getInstance().sendTreasureChestToMoverioNotPresent(treasureChest.first);
+            this.model.addKeyToPlayer2(treasureChest.first.getKey());
         }
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.unibo.bbc_smartphone.model.Alert;
+import it.unibo.bbc_smartphone.model.Key;
 import it.unibo.bbc_smartphone.model.Match;
 import it.unibo.bbc_smartphone.model.Thief;
 import it.unibo.bbc_smartphone.model.TreasureChest;
@@ -27,6 +28,7 @@ public class ParserUtils {
                 jsonObject.getDouble("longitude"),
                     jsonObject.getInt("money"),
                         jsonObject.getString("state"));
+        treasureChest.setKey(new Key(jsonObject.getInt("key")));
         return new Pair<>(treasureChest, jsonObject.getInt("idPlayer"));
     }
 
@@ -118,6 +120,7 @@ public class ParserUtils {
         jsonObject.put("longitude", treasureChest.getLongitude());
         jsonObject.put("money", treasureChest.getMoney());
         jsonObject.put("state", treasureChest.getState());
+        jsonObject.put("key", treasureChest.getKey().getNumberOfChest());
         return jsonObject;
     }
 

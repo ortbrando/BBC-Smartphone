@@ -27,6 +27,7 @@ public class Match {
         this.dateEnd = dateEnd;
         treasureChests = new ArrayList<>();
         this.player1 = new Player(idPlayer);
+        this.player2 = new Player(2);
     }
 
     public int getPoints() {
@@ -104,5 +105,13 @@ public class Match {
 
     public double getPlayerLongitude() {
         return this.player1.getLongitude();
+    }
+
+    public void addKeyToPlayer1(Key key) {
+        this.player1.addElement(key);
+    }
+
+    public void addKeyToPlayer2(Key key) {
+        this.player2.addElement(key);
     }
 }
