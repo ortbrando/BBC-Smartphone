@@ -124,7 +124,7 @@ public class ParserUtils {
     public static JSONObject getMatchJSONObject(Match match) throws JSONException{
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("messageType", 0);
-        jsonObject.put("points", 0);
+        jsonObject.put("points", match.getPoints());
         jsonObject.put("maxPoints", match.getMaxPoints());
         JSONArray treasuresArray = new JSONArray();
         for(TreasureChest t : match.getTreasureChests()){

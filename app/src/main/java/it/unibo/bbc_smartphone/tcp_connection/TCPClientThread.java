@@ -24,6 +24,7 @@ public class TCPClientThread extends Thread {
         while (true){
             try {
                 String s = inFromServer.readLine();
+
                 this.receiveMessage(s);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -35,6 +36,7 @@ public class TCPClientThread extends Thread {
 
     private Object receiveMessage(String s) throws JSONException {
         JSONObject jsonObject = new JSONObject(s);
+        Log.i("Received", s);
         int messageType = -1;
         Object object = null;
         switch (jsonObject.getInt("messageType")) {

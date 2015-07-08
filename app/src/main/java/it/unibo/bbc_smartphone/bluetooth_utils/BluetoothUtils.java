@@ -55,6 +55,7 @@ public class BluetoothUtils {
     public void sendThiefToMoverio(int amount) throws JSONException {
         if(this.connectedThread!=null) {
             connectedThread.write(ParserUtils.getThiefJSONObject(amount).toString().getBytes());
+            Log.i("Thief",ParserUtils.getThiefJSONObject(amount).toString());
         }
     }
 
