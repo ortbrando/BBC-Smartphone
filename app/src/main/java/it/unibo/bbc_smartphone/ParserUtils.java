@@ -134,6 +134,9 @@ public class ParserUtils {
             JSONObject treasure = new JSONObject();
             treasure.put("latitude", t.getLatitude());
             treasure.put("longitude", t.getLongitude());
+            treasure.put("state", t.getState());
+            treasure.put("number", t.getNumber());
+            treasure.put("points", t.getMoney());
             treasuresArray.put(treasure);
         }
         jsonObject.put("treasureChests", treasuresArray);
