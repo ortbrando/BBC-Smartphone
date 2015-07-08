@@ -48,4 +48,12 @@ public class Model {
     public double getPlayerLongitude(){
         return this.match.getPlayerLongitude();
     }
+
+    public void addKeyToPlayer1(Key key){
+        this.match.addKeyToPlayer1(key);
+    }
+
+    public void addKeyToPlayer2(Key key) {
+        this.match.addKeyToPlayer2(key);
+    }
 }
