@@ -47,6 +47,8 @@ public class MainActivity extends ActionBarActivity  {
     private final static String MAC_ADDRESS_MOVERIO = "88:33:14:40:74:4B";
     private final static String MAC_ADDRESS_OPO = "C0:EE:FB:35:0B:16";
     private final static String MAC_ADDRESS_MOTO = "E4:90:7E:E5:6B:28";
+    private final static String MAC_ADDRESS_NEXUS7_1 = "AC:22:0B:68:0D:CE";
+    private final static String MAC_ADDRESS_NEXUS7_2 = "AC:22:0B:68:0D:6C";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
